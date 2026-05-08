@@ -1,26 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   codexion.h                                         :+:      :+:    :+:   */
+/*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mchauvin <mchauvin@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/08 11:37:19 by mchauvin          #+#    #+#             */
-/*   Updated: 2026/05/08 15:12:14 by mchauvin         ###   ########lyon.fr   */
+/*   Created: 2026/05/08 10:14:38 by mchauvin          #+#    #+#             */
+/*   Updated: 2026/05/08 15:36:34 by mchauvin         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CODEXION_H
-# define CODEXION_H
+#ifndef PARSING_H
+# define PARSING_H
 
-#include "parsing.h"
-# include <stdio.h>
-# include <stdlib.h>
-# include <string.h>
-
-typedef struct s_codex
+typedef struct s_parsing
 {
-	t_parsing	parser;
-}				t_codex;
+	int		number_of_coders;
+	long	time_to_burnout;
+	long	time_to_compile;
+	long	time_to_debug;
+	long	time_to_refactor;
+	int		number_of_compiles_required;
+	long	dongle_cooldown;
+	char	*scheduler;
+} t_parsing;
+
+int	ft_check_args(int ac, char **av, t_codex *values);
 
 #endif

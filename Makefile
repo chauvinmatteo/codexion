@@ -1,15 +1,16 @@
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -pthread
-SRCS = 
+SRCS = ./src/parsing.c ./src/init_simulation.c
 OBJS = $(SRCS:.c=.o)
 NAME = codexion
+INCLUDES = -I./include
 
 all: $(NAME)
 $(NAME): $(OBJS)
 	$(CC) -o $@ $^
 
 %.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 clean:
 	rm -rf $(OBJS)

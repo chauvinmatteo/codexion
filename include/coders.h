@@ -6,7 +6,7 @@
 /*   By: mchauvin <mchauvin@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/11 09:53:59 by mchauvin          #+#    #+#             */
-/*   Updated: 2026/05/11 13:41:40 by mchauvin         ###   ########lyon.fr   */
+/*   Updated: 2026/05/12 11:17:06 by mchauvin         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,4 +28,6 @@ typedef struct s_coders
 	t_codex			*data;
 
 }					t_coders;
+
+void				*coders_routine(void *args);
 #endif

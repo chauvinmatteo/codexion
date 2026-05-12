@@ -6,7 +6,7 @@
 /*   By: mchauvin <mchauvin@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/08 11:37:19 by mchauvin          #+#    #+#             */
-/*   Updated: 2026/05/11 13:41:43 by mchauvin         ###   ########lyon.fr   */
+/*   Updated: 2026/05/12 16:10:48 by mchauvin         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,23 @@
 
 typedef struct s_codex
 {
-	t_parsing	parser;
-	t_coders	*coders;
-	t_dongles	*dongles;
+	t_parsing		parser;
+	t_coders		*coders;
+	t_dongles		*dongles;
+	pthread_mutex_t	print_lock;
+	pthread_mutex_t	state_lock;
+	long			start_time;
+	int				running;
+	pthread_t		monitor_thread;
 
-}				t_codex;
+}					t_codex;
 
-int				ft_check_args(int ac, char **av, t_codex *values);
+int					ft_check_args(int ac, char **av, t_codex *values);
+long				get_time_in_ms(void);
+int					ft_simulation_state(t_codex *data);
+void				print_action(t_codex *data, int id, char *action);
+void				free_codexion(t_codex *data);
+int					start_codexion(t_codex *data);
+int					init_codexion(t_codex *data);
 
 #endif

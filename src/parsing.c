@@ -6,7 +6,7 @@
 /*   By: mchauvin <mchauvin@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/08 10:00:39 by mchauvin          #+#    #+#             */
-/*   Updated: 2026/05/11 12:57:18 by mchauvin         ###   ########lyon.fr   */
+/*   Updated: 2026/05/12 16:05:43 by mchauvin         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 int	ft_parsed_value(t_parsing *parser)
 {
-	if (parser->number_of_coders < 0 || parser->time_to_burnout < 0
+	if (parser->number_of_coders <= 0 || parser->time_to_burnout <= 0
 		|| parser->time_to_compile < 0 || parser->time_to_debug < 0
 		|| parser->time_to_refactor < 0 || parser->dongle_cooldown < 0
 		|| parser->number_of_compiles_required < 0)
@@ -23,7 +23,8 @@ int	ft_parsed_value(t_parsing *parser)
 		fprintf(stderr, "Error: values has to be integers from 0 to int max");
 		return (-1);
 	}
-	if (strcmp(parser->scheduler, "fifo") != 0 && strcmp(parser->scheduler, "edf") != 0)
+	if (strcmp(parser->scheduler, "fifo") != 0 && strcmp(parser->scheduler,
+			"edf") != 0)
 	{
 		fprintf(stderr, "Error: scheduler needs to be 'fifo' or 'edf'");
 		return (-1);
@@ -68,4 +69,3 @@ int	ft_check_args(int ac, char **av, t_codex *values)
 	values->parser.scheduler = av[8];
 	return (ft_parsed_value(&values->parser));
 }
-

@@ -1,6 +1,6 @@
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -pthread
-SRCS = ./src/parsing.c ./src/init_simulation.c
+SRCS = ./src/parsing.c ./src/init.c ./src/coders.c ./src/utils.c ./src/codexion.c
 OBJS = $(SRCS:.c=.o)
 NAME = codexion
 INCLUDES = -I./include
@@ -13,10 +13,10 @@ $(NAME): $(OBJS)
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 clean:
-	rm -rf $(OBJS)
+	@rm -rf $(OBJS)
 
 fclean: clean
-	rm -rf $(NAME)
+	@rm -rf $(NAME)
 
 re: fclean all
 

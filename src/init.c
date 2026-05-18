@@ -6,7 +6,7 @@
 /*   By: mchauvin <mchauvin@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/11 10:23:25 by mchauvin          #+#    #+#             */
-/*   Updated: 2026/05/18 11:24:01 by mchauvin         ###   ########lyon.fr   */
+/*   Updated: 2026/05/18 12:10:25 by mchauvin         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,10 @@ int	init_global_mutexes(t_codex *data)
 {
 	pthread_mutex_init(&data->print_lock, NULL);
 	pthread_mutex_init(&data->state_lock, NULL);
+	pthread_mutex_init(&data->wait_list.queue_lock, NULL);
+	data->wait_list.head = NULL;
+	data->wait_list.tail = NULL;
+	data->wait_list.size = 0;
 	data->running = 1;
 	return (0);
 }

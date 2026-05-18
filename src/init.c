@@ -6,7 +6,7 @@
 /*   By: mchauvin <mchauvin@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/11 10:23:25 by mchauvin          #+#    #+#             */
-/*   Updated: 2026/05/12 16:37:39 by mchauvin         ###   ########lyon.fr   */
+/*   Updated: 2026/05/18 11:05:17 by mchauvin         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ static void	init_array(t_codex *data)
 	while (i < (data->parser.number_of_coders))
 	{
 		pthread_mutex_init(&data->dongles[i].lock, NULL);
-		pthread_cond_init(&data->dongles[i].cd, NULL);
 		pthread_mutex_init(&data->coders[i].personal_lock, NULL);
+		pthread_cond_init(&data->coders[i].turn_cond, NULL);
 		data->dongles[i].in_use = 0;
 		data->dongles[i].cooldown_end = 0;
 		data->coders[i].id = i + 1;
@@ -86,8 +86,9 @@ void	*monitor_routine(void *args)
 				pthread_mutex_lock(&codex->print_lock);
 				pthread_mutex_lock(&codex->state_lock);
 				codex->running = 0;
-				printf("%ld %d has burned out\n", 
-                    get_time_in_ms() - codex->start_time, codex->coders[i].id);;
+				printf("%ld %d has burned out\n", get_time_in_ms()
+					- codex->start_time, codex->coders[i].id);
+				;
 				pthread_mutex_unlock(&codex->state_lock);
 				pthread_mutex_unlock(&codex->print_lock);
 				return (NULL);

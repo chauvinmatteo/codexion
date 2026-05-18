@@ -6,7 +6,7 @@
 /*   By: mchauvin <mchauvin@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/11 09:54:59 by mchauvin          #+#    #+#             */
-/*   Updated: 2026/05/12 11:12:17 by mchauvin         ###   ########lyon.fr   */
+/*   Updated: 2026/05/18 11:04:49 by mchauvin         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 typedef struct s_dongles
 {
 	pthread_mutex_t	lock;
-	pthread_cond_t	cd;
 	int				in_use;
 	long			cooldown_end;
 

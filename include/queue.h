@@ -6,7 +6,7 @@
 /*   By: mchauvin <mchauvin@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/13 10:33:04 by mchauvin          #+#    #+#             */
-/*   Updated: 2026/05/18 11:08:25 by mchauvin         ###   ########lyon.fr   */
+/*   Updated: 2026/05/18 11:18:07 by mchauvin         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ typedef struct s_ticket
 {
 	t_coders		*coders;
 	struct s_ticket	*next;
-	struct s_ticket	*prev;
 }					t_ticket;
 
 typedef struct s_queue

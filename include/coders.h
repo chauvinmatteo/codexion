@@ -6,7 +6,7 @@
 /*   By: mchauvin <mchauvin@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/11 09:53:59 by mchauvin          #+#    #+#             */
-/*   Updated: 2026/05/18 11:04:58 by mchauvin         ###   ########lyon.fr   */
+/*   Updated: 2026/05/18 11:21:46 by mchauvin         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ typedef struct s_coders
 {
 	int				id;
 	int				compile_numbers;
+	int				can_compile;
 	long long		last_compile_start;
 	t_dongles		*left_dongle;
 	t_dongles		*right_dongle;

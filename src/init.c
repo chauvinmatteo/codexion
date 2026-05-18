@@ -6,7 +6,7 @@
 /*   By: mchauvin <mchauvin@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/11 10:23:25 by mchauvin          #+#    #+#             */
-/*   Updated: 2026/05/18 11:05:17 by mchauvin         ###   ########lyon.fr   */
+/*   Updated: 2026/05/18 11:24:01 by mchauvin         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ static void	init_array(t_codex *data)
 		data->dongles[i].cooldown_end = 0;
 		data->coders[i].id = i + 1;
 		data->coders[i].compile_numbers = 0;
+		data->coders[i].can_compile = 0;
 		data->coders[i].data = data;
 		data->coders[i].left_dongle = &data->dongles[i];
 		data->coders[i].right_dongle = &data->dongles[(i + 1)

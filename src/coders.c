@@ -6,7 +6,7 @@
 /*   By: mchauvin <mchauvin@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/11 13:58:46 by mchauvin          #+#    #+#             */
-/*   Updated: 2026/05/12 16:36:31 by mchauvin         ###   ########lyon.fr   */
+/*   Updated: 2026/05/12 17:09:22 by mchauvin         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	print_action(t_codex *data, int id, char *action)
 	long	time_now;
 
 	pthread_mutex_lock(&data->print_lock);
-	if (ft_simulation_state(data) == 1)
+	if (data->running == 1)
 	{
 		time_now = get_time_in_ms() - data->start_time;
 		printf("%ld %d %s\n", time_now, id, action);

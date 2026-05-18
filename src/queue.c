@@ -6,7 +6,7 @@
 /*   By: mchauvin <mchauvin@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/13 10:46:21 by mchauvin          #+#    #+#             */
-/*   Updated: 2026/05/13 14:22:43 by mchauvin         ###   ########lyon.fr   */
+/*   Updated: 2026/05/18 14:34:59 by mchauvin         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ int	ft_enqueue(t_queue *queue, t_coders *coder)
 		return (-1);
 	new_coder->coders = coder;
 	new_coder->next = NULL;
-	pthread_mutex_lock(&queue->queue_lock);
 	if (queue->head == NULL)
 	{
 		queue->head = new_coder;
@@ -33,7 +32,6 @@ int	ft_enqueue(t_queue *queue, t_coders *coder)
 		queue->tail = new_coder;
 	}
 	queue->size++;
-	pthread_mutex_unlock(&queue->queue_lock);
 	return (0);
 }
 
@@ -43,12 +41,8 @@ t_coders	*ft_dequeue(t_queue *queue, char *scheduler)
 	t_ticket	*target;
 	t_coders	*coder;
 
-	pthread_mutex_lock(&queue->queue_lock);
 	if (queue->size == 0)
-	{
-		pthread_mutex_unlock(&queue->queue_lock);
 		return (NULL);
-	}
 	target = fifo(queue, &prev);
 	if (prev == NULL)
 		queue->head = target->next;
@@ -59,6 +53,5 @@ t_coders	*ft_dequeue(t_queue *queue, char *scheduler)
 	coder = target->coders;
 	free(target);
 	queue->size--;
-	pthread_mutex_unlock(&queue->queue_lock);
 	return (coder);
 }

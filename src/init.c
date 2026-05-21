@@ -6,7 +6,7 @@
 /*   By: mchauvin <mchauvin@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/11 10:23:25 by mchauvin          #+#    #+#             */
-/*   Updated: 2026/05/18 12:10:25 by mchauvin         ###   ########lyon.fr   */
+/*   Updated: 2026/05/21 10:32:14 by mchauvin         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int	init_global_mutexes(t_codex *data)
 	data->wait_list.head = NULL;
 	data->wait_list.tail = NULL;
 	data->wait_list.size = 0;
+	data->wait_list.free_tickets = data->parser.number_of_coders / 2;
 	data->running = 1;
 	return (0);
 }

@@ -1,6 +1,6 @@
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -pthread
-SRCS = ./src/parsing.c ./src/init.c ./src/coders.c ./src/utils.c ./src/codexion.c
+SRCS = ./src/parsing.c ./src/init.c ./src/coders.c ./src/utils.c ./src/codexion.c ./src/queue.c ./src/scheduler.c
 OBJS = $(SRCS:.c=.o)
 NAME = codexion
 INCLUDES = -I./include

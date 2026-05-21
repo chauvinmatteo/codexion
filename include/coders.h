@@ -6,7 +6,7 @@
 /*   By: mchauvin <mchauvin@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/11 09:53:59 by mchauvin          #+#    #+#             */
-/*   Updated: 2026/05/18 11:21:46 by mchauvin         ###   ########lyon.fr   */
+/*   Updated: 2026/05/21 10:27:47 by mchauvin         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ typedef struct s_coders
 	long long		last_compile_start;
 	t_dongles		*left_dongle;
 	t_dongles		*right_dongle;
+	pthread_mutex_t	*first_lock;
+	pthread_mutex_t	*second_lock;
 	pthread_t		thread;
 	pthread_mutex_t	personal_lock;
 	pthread_cond_t	turn_cond;

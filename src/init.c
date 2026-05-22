@@ -6,7 +6,7 @@
 /*   By: mchauvin <mchauvin@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/11 10:23:25 by mchauvin          #+#    #+#             */
-/*   Updated: 2026/05/21 10:32:14 by mchauvin         ###   ########lyon.fr   */
+/*   Updated: 2026/05/22 11:36:40 by mchauvin         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ static void	init_array(t_codex *data)
 		pthread_mutex_init(&data->dongles[i].lock, NULL);
 		pthread_mutex_init(&data->coders[i].personal_lock, NULL);
 		pthread_cond_init(&data->coders[i].turn_cond, NULL);
-		data->dongles[i].in_use = 0;
 		data->dongles[i].cooldown_end = 0;
 		data->coders[i].id = i + 1;
 		data->coders[i].compile_numbers = 0;

@@ -6,14 +6,13 @@
 /*   By: mchauvin <mchauvin@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/11 13:58:46 by mchauvin          #+#    #+#             */
-/*   Updated: 2026/05/18 15:47:57 by mchauvin         ###   ########lyon.fr   */
+/*   Updated: 2026/05/21 11:52:11 by mchauvin         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/coders.h"
 #include "../include/codexion.h"
 #include "../include/queue.h"
-#include <unistd.h>
 
 void	print_action(t_codex *data, int id, char *action)
 {
@@ -45,46 +44,16 @@ static void	assign_locks(t_coders *coder, pthread_mutex_t **first,
 
 void	*coders_routine(void *args)
 {
-	t_coders		*coders;
-	pthread_mutex_t	*first_lock;
-	pthread_mutex_t	*second_lock;
-	t_coders		*next_coder;
+	t_coders	*coder;
 
-	coders = (t_coders *)args;
-	assign_locks(coders, &first_lock, &second_lock);
-	pthread_mutex_lock(&coders->data->wait_list.queue_lock);
-	ft_enqueue(&coders->data->wait_list, coders);
-	while (coders->can_compile == 0)
-		pthread_cond_wait(&coders->turn_cond,
-			&coders->data->wait_list.queue_lock);
-	coders->can_compile = 0;
-	pthread_mutex_unlock(&coders->data->wait_list.queue_lock);
-	while ((ft_simulation_state(coders->data) == 1))
+	coder = (t_coders *)args;
+	assign_locks(coder, &coder->first_lock, &coder->second_lock);
+	while (ft_simulation_state(coder->data) == 1)
 	{
-		pthread_mutex_lock(first_lock);
-		print_action(coders->data, coders->id, "has taken a dongle");
-		pthread_mutex_lock(second_lock);
-		print_action(coders->data, coders->id, "has taken a dongle");
-		print_action(coders->data, coders->id, "is compiling");
-		pthread_mutex_lock(&coders->personal_lock);
-		coders->last_compile_start = get_time_in_ms();
-		coders->compile_numbers++;
-		pthread_mutex_unlock(&coders->personal_lock);
-		usleep(coders->data->parser.time_to_compile * 1000);
-		pthread_mutex_unlock(first_lock);
-		pthread_mutex_unlock(second_lock);
-		print_action(coders->data, coders->id, "is debugging");
-		usleep(coders->data->parser.time_to_debug * 1000);
-		print_action(coders->data, coders->id, "is refactoring");
-		usleep(coders->data->parser.time_to_refactor * 1000);
+		waiting_turn(coder, &coder->data->wait_list);
+		take_and_compile(coder);
+		pass_token(&coder->data->wait_list);
+		debug_and_refactor(coder);
 	}
-	pthread_mutex_lock(&coders->data->wait_list.queue_lock);
-	next_coder = ft_dequeue(&coders->data->wait_list, "fifo");
-	if (next_coder != NULL)
-	{
-		coders->can_compile = 1;
-		pthread_cond_broadcast(&next_coder->turn_cond);
-	}
-	pthread_mutex_unlock(&coders->data->wait_list.queue_lock);
 	return (NULL);
 }

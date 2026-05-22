@@ -6,7 +6,7 @@
 /*   By: mchauvin <mchauvin@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/12 09:20:49 by mchauvin          #+#    #+#             */
-/*   Updated: 2026/05/18 15:30:21 by mchauvin         ###   ########lyon.fr   */
+/*   Updated: 2026/05/22 11:38:02 by mchauvin         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	free_codexion(t_codex *data)
 	while (i < data->parser.number_of_coders)
 	{
 		pthread_mutex_destroy(&data->dongles[i].lock);
-		pthread_cond_destroy(&data->coders->turn_cond);
+		pthread_cond_destroy(&data->coders[i].turn_cond);
 		pthread_mutex_destroy(&data->coders[i].personal_lock);
 		i++;
 	}

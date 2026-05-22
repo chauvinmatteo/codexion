@@ -6,7 +6,7 @@
 /*   By: mchauvin <mchauvin@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/11 09:53:59 by mchauvin          #+#    #+#             */
-/*   Updated: 2026/05/21 10:27:47 by mchauvin         ###   ########lyon.fr   */
+/*   Updated: 2026/05/21 13:29:50 by mchauvin         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "dongles.h"
 # include "parsing.h"
 # include "typedef.h"
+
 typedef struct s_coders
 {
 	int				id;

@@ -6,7 +6,7 @@
 /*   By: mchauvin <mchauvin@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/08 11:37:19 by mchauvin          #+#    #+#             */
-/*   Updated: 2026/05/18 15:48:24 by mchauvin         ###   ########lyon.fr   */
+/*   Updated: 2026/05/21 11:52:04 by mchauvin         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,5 +46,9 @@ int					init_codexion(t_codex *data);
 
 int					ft_enqueue(t_queue *queue, t_coders *coder);
 t_coders			*ft_dequeue(t_queue *queue, char *scheduler);
+void				waiting_turn(t_coders *coders, t_queue *queue);
+void				take_and_compile(t_coders *coder);
+void				pass_token(t_queue *queue);
+void				debug_and_refactor(t_coders *coder);
 
 #endif

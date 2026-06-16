@@ -6,7 +6,7 @@
 /*   By: mchauvin <mchauvin@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/21 11:17:15 by mchauvin          #+#    #+#             */
-/*   Updated: 2026/05/21 14:11:28 by mchauvin         ###   ########lyon.fr   */
+/*   Updated: 2026/06/16 11:10:10 by mchauvin         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ void	waiting_turn(t_coders *coders, t_queue *queue)
 
 void	take_and_compile(t_coders *coder)
 {
-	pthread_mutex_lock(coder->first_lock);
+	pthread_mutex_lock(&coder->first_dongle->lock);
 	print_action(coder->data, coder->id, "has taken a dongle");
-	pthread_mutex_lock(coder->second_lock);
+	pthread_mutex_lock(&coder->second_dongle->lock);
 	print_action(coder->data, coder->id, "has taken a dongle");
 	print_action(coder->data, coder->id, "is compiling");
 	pthread_mutex_lock(&coder->personal_lock);
@@ -40,8 +40,12 @@ void	take_and_compile(t_coders *coder)
 	coder->compile_numbers++;
 	pthread_mutex_unlock(&coder->personal_lock);
 	usleep(coder->data->parser.time_to_compile * 1000);
-	pthread_mutex_unlock(coder->first_lock);
-	pthread_mutex_unlock(coder->second_lock);
+	coder->right_dongle->available_at = get_time_in_ms()
+		+ coder->data->parser.dongle_cooldown;
+	coder->left_dongle->available_at = get_time_in_ms()
+		+ coder->data->parser.dongle_cooldown;
+	pthread_mutex_unlock(&coder->first_dongle->lock);
+	pthread_mutex_unlock(&coder->second_dongle->lock);
 }
 
 void	pass_token(t_queue *queue)
@@ -64,7 +68,21 @@ void	debug_and_refactor(t_coders *coder)
 {
 	print_action(coder->data, coder->id, "is debugging");
 	usleep(coder->data->parser.time_to_debug * 1000);
-
 	print_action(coder->data, coder->id, "is refactoring");
 	usleep(coder->data->parser.time_to_refactor * 1000);
+}
+
+void	print_action(t_codex *data, int id, char *action)
+{
+	long	time_now;
+
+	pthread_mutex_lock(&data->state_lock);
+	pthread_mutex_lock(&data->print_lock);
+	if (data->running == 1)
+	{
+		time_now = get_time_in_ms() - data->start_time;
+		printf("%ld %d %s\n", time_now, id, action);
+	}
+	pthread_mutex_unlock(&data->print_lock);
+	pthread_mutex_unlock(&data->state_lock);
 }

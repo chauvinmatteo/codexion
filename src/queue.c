@@ -6,12 +6,11 @@
 /*   By: mchauvin <mchauvin@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/13 10:46:21 by mchauvin          #+#    #+#             */
-/*   Updated: 2026/05/18 16:21:54 by mchauvin         ###   ########lyon.fr   */
+/*   Updated: 2026/06/16 10:18:40 by mchauvin         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/codexion.h"
-#include "../include/queue.h"
 
 int	ft_enqueue(t_queue *queue, t_coders *coder)
 {
@@ -42,10 +41,14 @@ t_coders	*ft_dequeue(t_queue *queue, char *scheduler)
 	t_ticket	*target;
 	t_coders	*coder;
 
-	(void)scheduler;
+	target = NULL;
+	prev = NULL;
 	if (queue->size == 0)
 		return (NULL);
-	target = fifo(queue, &prev);
+	if (strcmp(scheduler, "fifo") == 0)
+		target = fifo(queue, &prev);
+	else if (strcmp(scheduler, "edf") == 0)
+		target = edf(queue, &prev);
 	if (prev == NULL)
 		queue->head = target->next;
 	else

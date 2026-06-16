@@ -6,21 +6,20 @@
 /*   By: mchauvin <mchauvin@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/08 10:00:39 by mchauvin          #+#    #+#             */
-/*   Updated: 2026/05/12 16:05:43 by mchauvin         ###   ########lyon.fr   */
+/*   Updated: 2026/06/16 10:18:36 by mchauvin         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/codexion.h"
-#include "../include/parsing.h"
 
 int	ft_parsed_value(t_parsing *parser)
 {
 	if (parser->number_of_coders <= 0 || parser->time_to_burnout <= 0
 		|| parser->time_to_compile < 0 || parser->time_to_debug < 0
 		|| parser->time_to_refactor < 0 || parser->dongle_cooldown < 0
-		|| parser->number_of_compiles_required < 0)
+		|| parser->number_of_compiles_required <= 0)
 	{
-		fprintf(stderr, "Error: values has to be integers from 0 to int max");
+		fprintf(stderr, "Error: values has to be integers from 1 to int max");
 		return (-1);
 	}
 	if (strcmp(parser->scheduler, "fifo") != 0 && strcmp(parser->scheduler,
@@ -52,11 +51,11 @@ int	ft_check_args(int ac, char **av, t_codex *values)
 	if (ac != 9)
 	{
 		fprintf(stderr,
-				"Invalid format, expected:\n%s number_of_coders "
-				"time_to_burnout time_to_compile time_to_debug "
-				"time_to_refactor number_of_compiles_required "
-				"dongle_cooldown scheduler\n",
-				av[0]);
+			"Invalid format, expected:\n%s number_of_coders "
+			"time_to_burnout time_to_compile time_to_debug "
+			"time_to_refactor number_of_compiles_required "
+			"dongle_cooldown scheduler\n",
+			av[0]);
 		return (-1);
 	}
 	values->parser.number_of_coders = ft_check_int(av[1]);
